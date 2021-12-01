@@ -76,29 +76,17 @@ public class Array {
         System.out.println("");
     }
 
-    public void outputFile(File file, String str) {
-        try (RandomAccessFile writer = new RandomAccessFile(file, "rw")) {
-            long position = writer.length();
-            writer.seek(position);
-
-            writer.write(str.getBytes(StandardCharsets.UTF_8));
-            StringBuilder sb = new StringBuilder();
-
-            for (int i = 0; i < n; i++) {
-                sb.append("\n");
-
-                for (int j = 0; j < n; j++) {
-                    sb.append(array[i][j] + " ");
+    public void outputFile(File file, String str){
+        try(FileWriter writer = new FileWriter(file, true)){
+            writer.write(str);
+            for (int i=0; i<n; i++){
+                writer.write("\n");
+                for (int j=0; j<n; j++){
+                    writer.write(array[i][j] + " ");
                 }
             }
-
-            sb.append("\n\n");
-
-            position = writer.length();
-            writer.seek(position);
-            writer.write(sb.toString().getBytes(StandardCharsets.UTF_8));
-
-        } catch (IOException e) {
+            writer.write("\n\n");
+        }catch (IOException e){
             System.out.println(e.getMessage());
         }
     }
