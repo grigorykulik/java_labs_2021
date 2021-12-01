@@ -5,8 +5,10 @@ package lab_2;
 //        0.2-2.230.81
 //        1.59-1.270.64
 
+import lab_2.exceptions.DivisionByZeroException;
+import lab_2.exceptions.FileDoesNotExistException;
+
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -14,9 +16,12 @@ public class Array {
     private double[][] array;
     private int n;
 
-    public Array(File file) throws FileNotFoundException {
-        getN(file);
-
+    public Array(File file) throws FileDoesNotExistException {
+        try {
+            getN(file);
+        } catch (FileNotFoundException e) {
+            throw new FileDoesNotExistException();
+        }
         array = new double[n][n];
         Random random = new Random();
         int min = -10;
@@ -36,7 +41,12 @@ public class Array {
     }
 
     public void rotate() {
-        divideNumberSum();
+        try {
+            divideNumberSum();
+        } catch (DivisionByZeroException e) {
+            System.out.println(e.getMessage());
+        }
+
         double[][] arr = new double[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -46,7 +56,7 @@ public class Array {
         array = arr;
     }
 
-    public void divideNumberSum() {
+    public void divideNumberSum() throws DivisionByZeroException {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 double sum = 0;
