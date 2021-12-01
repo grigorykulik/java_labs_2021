@@ -7,11 +7,13 @@ public class Main {
     public static void main(String[] args) throws IOException {
         File input = new File("/media/greg/New Volume/development/java_labs_21/src/main/resources/input");
         File output = new File("/media/greg/New Volume/development/java_labs_21/src/main/resources/output");
-        output.delete();
+
+        if (output.exists()) {
+            output.delete();
+        }
 
         String nameArray;
         Array array = new Array(input);
-
         array.print();
 
         for (int i = 0; i < 3; i++) {
