@@ -8,8 +8,12 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        File input = new File("/media/greg/New Volume/development/java_labs_21/src/main/resources/88");
+        File input = new File("/media/greg/New Volume/development/java_labs_21/src/main/resources/input");
         File output = new File("/media/greg/New Volume/development/java_labs_21/src/main/resources/output");
+
+        if (output.exists()) {
+            output.delete();
+        }
 
         String nameArray;
         try {
@@ -24,6 +28,8 @@ public class Main {
             }
         } catch (FileDoesNotExistException e) {
             System.out.println(e.getMessage());
+        } catch (OutOfMemoryError error) {
+            System.out.println("Could not perform operation. Not enough memory");
         }
     }
 }
