@@ -1,13 +1,10 @@
 package lab_2;
 
 import lab_2.exceptions.FileDoesNotExistException;
-
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         File input = new File("/media/greg/New Volume/development/java_labs_21/src/main/resources/input");
         File output = new File("/media/greg/New Volume/development/java_labs_21/src/main/resources/output");
 
@@ -29,7 +26,7 @@ public class Main {
         } catch (FileDoesNotExistException e) {
             System.out.println(e.getMessage());
         } catch (OutOfMemoryError error) {
-            System.out.println("Could not perform operation. Not enough memory");
+            throw new RuntimeException("Not enough memory!");
         }
     }
 }
