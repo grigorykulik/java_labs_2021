@@ -2,6 +2,7 @@ package lab_2;
 
 import lab_2.exceptions.FileDoesNotExistException;
 import java.io.File;
+import java.util.NoSuchElementException;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,6 +28,9 @@ public class Main {
             System.out.println(e.getMessage());
         } catch (OutOfMemoryError error) {
             throw new RuntimeException("Not enough memory!");
+        } catch (NoSuchElementException exception) {
+            System.out.println("Error! Either input file is empty, contains unsupported characters or the number " +
+                    "in it exceeds the maximum value for an int.");
         }
     }
 }

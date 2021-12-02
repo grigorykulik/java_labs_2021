@@ -1,12 +1,8 @@
 package lab_2;
 
-//Array 270 degrees
-//        13.3-0.2-2.56
-//        0.2-2.230.81
-//        1.59-1.270.64
-
 import lab_2.exceptions.DivisionByZeroException;
 import lab_2.exceptions.FileDoesNotExistException;
+import lab_2.exceptions.NumberTooLargeException;
 
 import java.io.*;
 import java.util.Random;
@@ -21,6 +17,8 @@ public class Array {
             getN(file);
         } catch (FileNotFoundException e) {
             throw new FileDoesNotExistException();
+            } catch (NumberTooLargeException e) {
+            System.out.println(e.getMessage());
         }
         array = new double[n][n];
         Random random = new Random();
@@ -34,10 +32,17 @@ public class Array {
         }
     }
 
-    public void getN(File file) throws FileNotFoundException {
-        FileReader reader = new FileReader(file);
-        Scanner scanner = new Scanner(reader);
-        n = scanner.nextInt();
+    public void getN(File file) throws FileNotFoundException, NumberTooLargeException {
+        try (FileReader reader = new FileReader(file)) {
+            Scanner scanner = new Scanner(reader);
+            n = scanner.nextInt();
+
+            if (n > 1_000_000) {
+                throw new NumberTooLargeException();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void rotate() {
@@ -86,17 +91,17 @@ public class Array {
         System.out.println("");
     }
 
-    public void outputFile(File file, String str){
-        try(FileWriter writer = new FileWriter(file, true)){
+    public void outputFile(File file, String str) {
+        try (FileWriter writer = new FileWriter(file, true)) {
             writer.write(str);
-            for (int i=0; i<n; i++){
+            for (int i = 0; i < n; i++) {
                 writer.write("\n");
-                for (int j=0; j<n; j++){
+                for (int j = 0; j < n; j++) {
                     writer.write(array[i][j] + " ");
                 }
             }
             writer.write("\n\n");
-        }catch (IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
