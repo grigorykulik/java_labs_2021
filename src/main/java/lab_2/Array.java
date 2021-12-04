@@ -76,7 +76,9 @@ public class Array {
                     System.out.println(e.getMessage());
                 }
 
-                array[i][j] = (double) Math.round((array[i][j] / sum) * 100.0) / 100.0;
+                if (sum == 0) {
+                    array[i][j] = (double) Math.round((array[i][j] / sum) * 100.0) / 100.0;
+                } throw new DivisionByZeroException();
             }
         }
     }

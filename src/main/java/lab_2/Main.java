@@ -27,7 +27,7 @@ public class Main {
         } catch (FileDoesNotExistException e) {
             System.out.println(e.getMessage());
         } catch (OutOfMemoryError error) {
-            throw new RuntimeException("Not enough memory!");
+            System.out.println("Not enough memory");
         } catch (NoSuchElementException exception) {
             System.out.println("Error! Either input file is empty, contains unsupported characters or the number " +
                     "in it exceeds the maximum value for an int.");

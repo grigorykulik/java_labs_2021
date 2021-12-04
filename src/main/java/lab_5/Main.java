@@ -3,9 +3,7 @@ package lab_5;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -82,32 +80,41 @@ public class Main {
 //                .stream()
 //                .forEach(s -> System.out.println(s));
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        //entering string, method 2
-        ArrayList<String> array4 = new ArrayList<>();
-        System.out.println("Enter strings. When finished, type \"quit\"");
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        //entering string, method 2
+//        ArrayList<String> array4 = new ArrayList<>();
+//        System.out.println("Enter strings. When finished, type \"quit\"");
+//
+//        while (true) {
+//            try {
+//                String sInput = br.readLine();
+//                if (sInput.equals("quit")) {
+//                    break;
+//                }
+//                array4.add(sInput);
+//            } catch (IOException e) {
+//                System.out.println("Error reading input");
+//            }
+//        }
+//        System.out.println("Enter the desired letter.");
+//        try {
+//            String letter = br.readLine();
+//            strsStartWithLetterSortedAlp(array4, letter)
+//                    .stream()
+//                    .forEach(s -> System.out.println(s));
+//        } catch (IOException e) {
+//            System.out.println("Error reading input");
+//        }
 
-        while (true) {
-            try {
-                String sInput = br.readLine();
-                if (sInput.equals("quit")) {
-                    break;
-                }
-                array4.add(sInput);
-            } catch (IOException e) {
-                System.out.println("Error reading input");
-            }
-        }
-        System.out.println("Enter the desired letter.");
-        try {
-            String letter = br.readLine();
-            strsStartWithLetterSortedAlp(array4, letter)
-                    .stream()
-                    .forEach(s -> System.out.println(s));
-        } catch (IOException e) {
-            System.out.println("Error reading input");
-        }
+//        List<Integer> list = new ArrayList<>();
+//        System.out.println(getLastElement(list));
 
+//        int[] array = {1, 2, 3};
+//        System.out.println(getSumOfEvenNumbers(array));
+
+        List<String> list = new ArrayList<>();
+        list.add("greg");
+        System.out.println(convertListStringToMap(list));
 
     }
 
@@ -139,13 +146,38 @@ public class Main {
     }
 
     public static List<String> strsStartWithLetterSortedAlp(ArrayList<String> strings, String letter) {
-        List<String> sortedStrings = strings
+
+        return strings
                 .stream()
                 .filter(s -> s.startsWith(letter))
-                .sorted(String::compareTo)
+                .sorted()
                 .collect(Collectors.toList());
+    }
 
-        return sortedStrings;
+    public static <T> T getLastElement(Collection<T> collection) {
+        return collection
+                .stream()
+                .reduce((first, second) -> second)
+                .orElseThrow(NoSuchElementException::new);
+    }
+
+    public static int getSumOfEvenNumbers(int[] array) {
+        return Arrays
+                .stream(array)
+                .filter(i -> (i%2==0))
+                .sum();
+    }
+
+    public static Map<String, String> convertListStringToMap(List<String> list) {
+        Map<String, String> convertredStrings = new HashMap<>();
+
+        list
+                .stream()
+                .forEach(s -> {
+                    convertredStrings.put(s.substring(0, 1), s.substring(1, s.length()));
+                });
+
+        return convertredStrings;
     }
 
 }
